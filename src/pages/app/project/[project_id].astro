@@ -1,9 +1,15 @@
 ---
 import LayoutApp from '@layouts/LayoutApp.astro'
-import { getProject, getTasks } from '@data/pocketbase'
+
+import ProjectStatus from '@components/app/projects/ProjectStatus.astro'
+
 import ButtonAddNewTask from '@components/app/tasks/ButtonAddNewTask.astro'
 
 import HamburgerMenuButton from '@components/app/HamburgerMenuButton.astro'
+
+import TasksList from '@components/app/tasks/TasksList.astro'
+
+import { getProject } from '@data/pocketbase'
 
 const { project_id = '' } = Astro.params
 
@@ -13,7 +19,6 @@ if (!project) {
   return Astro.redirect('/app/dashboard')
 }
 
-const tasks = await getTasks(project_id)
 ---
 
 <LayoutApp title={project.name}>
@@ -25,8 +30,26 @@ const tasks = await getTasks(project_id)
       <div class='sm:hidden'>
         <HamburgerMenuButton />
       </div>
-      {project.name}
+      <span
+        hx-get=`/app/modals/project/${project_id}/edit`
+        hx-target='dialog'>
+        {project.name}
+      </span>
     </div>
+    <div
+      class='flex items-center justify-between mx-auto max-w-7xl'>
+      <a href={'/app/dashboard'}>
+        <button
+          type='button'
+          class='text-xl btn-header text-zinc-800 dark:text-white'>
+          ◀︎ All your projects
+        </button>
+      </a>
+      <div class='mr-0.5'>
+        <ProjectStatus project={project} />
+      </div>
+    </div>
+
     <div class='space-y-6'>
       <div
         class='p-10 text-white rounded-lg shadow bg-zinc-100 dark:bg-zinc-800'>
@@ -35,18 +58,8 @@ const tasks = await getTasks(project_id)
           Tasks to do
         </h2>
 
-        <div>
-          {
-            tasks.length === 0 && (
-              <p class='text-center text-zinc-900 dark:text-white pb-10'>
-                Nothing yet
-              </p>
-            )
-          }
-
-          <ul class='space-y-6 text-zinc-900 dark:text-white'>
-            {tasks.map(task => <li>{task.text}</li>)}
-          </ul>
+        <div id='tasks-todo'>
+          <TasksList project_id={project_id} />
         </div>
 
         <ButtonAddNewTask project_id={project_id} />

@@ -1,10 +1,11 @@
 
+import PocketBase from 'pocketbase'
+
 import type {
 	TypedPocketBase,
 	TypedPocketResponse,
+	ProjectsRecord,
 } from '@src/data/pocketbase-types'
-
-import PocketBase from 'pocketbase'
 
 export const pb = new PocketBase(
 	import.meta.env.POCKETBASE_URL || process.env.POCKETBASE_URL
@@ -86,5 +87,9 @@ export async function deleteProject(id: string) {
 	await pb.collection('projects').delete(id)
 }
 
-
+export async function updateProject(
+	id: string,
+	data: ProjectsRecord) {
+	await pb.collection('projects').update(id, data)
+}
 
