@@ -1,4 +1,6 @@
 ---
+import '@src/app.css'
+
 import Sidebar from '@components/app/Sidebar.astro'
 
 const { title = 'Secretplan' } = Astro.props
@@ -34,19 +36,7 @@ const { title = 'Secretplan' } = Astro.props
       window.Alpine = Alpine //optional
       Alpine.start()
       htmx.process(document.body)
-    </script>
-    
-    <style>
-      dialog::backdrop {
-        background-color: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(3px);
-      }
-      [x-cloak] {
-        /* fix apline js flicker on load */
-        display: none;
-      }
-    </style>
-
+    </script>  
   </head>
 
   <body x-data>
