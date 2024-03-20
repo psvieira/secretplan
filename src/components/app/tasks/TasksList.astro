@@ -1,6 +1,6 @@
 
 ---
-import { getTasks } from '@data/pocketbase'
+import { getTasks, getStarredTasks } from '@data/pocketbase'
 
 import CompleteTaskButton from '@components/app/tasks/CompleteTaskButton.astro'
 
@@ -8,13 +8,18 @@ import DeleteTaskButton from '@components/app/tasks/DeleteTaskButton.astro'
 
 import StarTaskButton from '@components/app/tasks/StarTaskButton.astro'
 
-const { project_id, done } = Astro.props
+const { project_id, done, starred } = Astro.props
 
-const tasks = await getTasks({ project_id, done })
+let tasks = null
+if (starred) {
+  tasks = await getStarredTasks()
+} else {
+  tasks = await getTasks({ project_id, done })
+}
 ---
 
 {
-  tasks.length === 0 && (
+  tasks.length === 0 && !starred && (
     <p class='text-center text-zinc-900 dark:text-white'>Nothing yet</p>
   )
 }
