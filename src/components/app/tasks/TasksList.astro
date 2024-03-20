@@ -1,0 +1,29 @@
+
+---
+import { getTasks } from '@data/pocketbase'
+import DeleteTaskButton from '@components/app/tasks/DeleteTaskButton.astro'
+
+const { project_id } = Astro.props
+
+const tasks = await getTasks(project_id)
+---
+
+{
+  tasks.length === 0 && (
+    <p class='text-center text-zinc-900 dark:text-white'>Nothing yet</p>
+  )
+}
+
+<ul class='space-y-6 mb-10'>
+  {tasks.map(task => (
+  	<li>
+  	<div class='flex justify-between text-zinc-900'>
+      <div>{task.text}</div>
+        <div>
+          <DeleteTaskButton task={task} />
+        </div>
+      </div>
+  	</li>
+  	))
+	}
+</ul>
