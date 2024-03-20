@@ -6,6 +6,8 @@ import CompleteTaskButton from '@components/app/tasks/CompleteTaskButton.astro'
 
 import DeleteTaskButton from '@components/app/tasks/DeleteTaskButton.astro'
 
+import StarTaskButton from '@components/app/tasks/StarTaskButton.astro'
+
 const { project_id, done } = Astro.props
 
 const tasks = await getTasks({ project_id, done })
@@ -23,6 +25,9 @@ const tasks = await getTasks({ project_id, done })
   	 <div class='flex justify-between text-zinc-900 space-x-4 items-center'>
       <div>
         <CompleteTaskButton task={task} />
+      </div>
+      <div>
+        <StarTaskButton task={task} />
       </div>
       <div class='flex-1'>{task.text}</div>
         <div>

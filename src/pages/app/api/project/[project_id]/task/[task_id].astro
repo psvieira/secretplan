@@ -27,6 +27,16 @@ if (Astro.request.method === 'PUT') {
       completed: false,
       completed_on: '',
     })
+  } else if (action === "star") {
+    await updateTask(task_id, {
+      starred: true,
+      starred_on: new Date().toISOString(),
+    })
+  } else if (action === "unstar") {
+    await updateTask(task_id, {
+      starred: false,
+      starred_on: '',
+    })
   } else {
     return new Response('Invalid action', { status: 400 })
   }
