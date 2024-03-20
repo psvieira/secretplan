@@ -8,12 +8,34 @@ export const pb = new PocketBase(
 // globally disable auto cancellaton
 pb.autoCancellation(false)
 
+function getStatus(project) {
+	switch (project.status) {
+		case "not started":
+			return 7;
+		case "on hold":
+			return 6;
+		case "started":
+			return 5;
+		case "in progress":
+			return 4;
+		case "almost finished":
+			return 3;
+		case "ongoing":
+			return 2;
+		case "done":
+			return 1;
+		default:
+			return 0;
+	}
+}
+
 export async function getProjects() {
 	const projects = await pb
 		.collection('projects')
 		.getFullList()
 
-	return projects
+	return projects.sort(
+		(a,b) => getStatus(a) - getStatus(b))
 }
 
 export async function addProject(name: string) {
