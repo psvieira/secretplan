@@ -82,3 +82,9 @@ export async function getTasks(project_id: string) {
 	return tasks
 }
 
+export async function deleteProject(id: string) {
+	await pb.collection('projects').delete(id)
+}
+
+
+
