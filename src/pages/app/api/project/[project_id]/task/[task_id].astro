@@ -1,0 +1,13 @@
+
+---
+export const partial = true
+
+import { deleteTask } from '@data/pocketbase'
+
+const { task_id = '', project_id = '' } = Astro.params
+
+if (Astro.request.method === 'DELETE') {
+  await deleteTask(task_id)
+  return new Response(null, { status: 200 })
+}
+---

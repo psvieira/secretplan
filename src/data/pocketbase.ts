@@ -93,3 +93,8 @@ export async function updateProject(
 	await pb.collection('projects').update(id, data)
 }
 
+export async function deleteTask(id: string) {
+	await pb.collection('tasks').delete(id)
+}
+
+
