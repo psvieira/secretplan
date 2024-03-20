@@ -50,3 +50,9 @@ if (Astro.request.method === 'PUT') {
 <div id='tasks-done' hx-swap-oob='true'>
   <TasksList done={true} project_id={project_id} />
 </div>
+
+<div id='starred-tasks-list' hx-swap-oob='true'>
+  <TasksList starred={true} />
+</div>
+
+
