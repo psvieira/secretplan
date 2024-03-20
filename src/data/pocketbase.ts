@@ -5,6 +5,8 @@ import type {
 	TypedPocketBase,
 	TypedPocketResponse,
 	ProjectsRecord,
+	ProjectsResponse,
+	TasksRecord,
 } from '@src/data/pocketbase-types'
 
 export const pb = new PocketBase(
@@ -72,10 +74,17 @@ export async function addTask(
 	return newTask
 }
 
-export async function getTasks(project_id: string) {
-	const options = {
-		filter: `project = "${project_id}"`,
-	}
+export async function getTasks({
+	project_id = null,
+	done = false
+}) {
+	const options = { filter:''	}
+
+	let filter = `completed = ${done}`
+	filter += ` && project = "${project_id}"`
+
+	options.filter = filter
+	
 	const tasks = await pb
 		.collection('tasks')
 		.getFullList(options)
@@ -97,4 +106,10 @@ export async function deleteTask(id: string) {
 	await pb.collection('tasks').delete(id)
 }
 
+export async function updateTask(
+	id: string,
+	data: TasksRecord
+	) {
+	await pb.collection('tasks').update(id, data)
+}
 
