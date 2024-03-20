@@ -1,14 +1,19 @@
 
+import type {
+	TypedPocketBase,
+	TypedPocketResponse,
+} from '@src/data/pocketbase-types'
+
 import PocketBase from 'pocketbase'
 
 export const pb = new PocketBase(
 	import.meta.env.POCKETBASE_URL || process.env.POCKETBASE_URL
-	)
+	) as TypedPocketBase
 
 // globally disable auto cancellaton
 pb.autoCancellation(false)
 
-function getStatus(project) {
+function getStatus(project: ProjectsResponse) {
 	switch (project.status) {
 		case "not started":
 			return 7;
