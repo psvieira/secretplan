@@ -85,7 +85,6 @@ export async function getTasks({
 }): Promise<TasksResponse<TexpandProject>[]> {
 	const options = { 
 		filter:'',
-		expand: 'project',
 	}
 
 	let filter = `completed = ${done}`
@@ -118,7 +117,7 @@ export async function deleteTask(id: string) {
 
 export async function updateTask(
 	id: string,
-	data: TasksRecord
+	data: TasksRecord,
 	) {
 	await pb.collection('tasks').update(id, data)
 }

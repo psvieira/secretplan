@@ -38,7 +38,7 @@ if (Astro.request.method === 'PUT') {
       starred_on: '',
     })
   } else if (action === 'edit-text') {
-    await updateTask('task_id', {
+    await updateTask(task_id, {
       text: formData.get('task-text') as string,
     })
   } else {

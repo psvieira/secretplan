@@ -8,6 +8,8 @@ import DeleteTaskButton from '@components/app/tasks/DeleteTaskButton.astro'
 
 import StarTaskButton from '@components/app/tasks/StarTaskButton.astro'
 
+import TaskText from '@components/app/tasks/TaskText.astro'
+
 const { project_id, done, starred } = Astro.props
 
 let tasks = null
@@ -34,7 +36,7 @@ if (starred) {
       <div>
         <StarTaskButton task={task} />
       </div>
-      <div class='flex-1'>{task.text}</div>
+      <TaskText task={task} />
         {starred ? (
           <div>
             <a href={`/app/project/${task.project}`}>
