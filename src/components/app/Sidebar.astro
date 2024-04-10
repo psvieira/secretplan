@@ -2,6 +2,9 @@
 import { getProjects } from '@data/pocketbase'
 
 const projects = await getProjects ()
+
+import { getUsername } from '@lib/auth'
+
 ---
 
 
@@ -70,4 +73,10 @@ const projects = await getProjects ()
       }
     </div>
   </div>
+
+  <a
+    class='block py-2 pl-2 mb-10 border-b rounded-lg cursor-pointer bg-zinc-900 hover:bg-zinc-800 border-zinc-800'
+    hx-post='/logout'>
+    Logout @{getUsername(Astro.request)}
+  </a>
 </aside>
