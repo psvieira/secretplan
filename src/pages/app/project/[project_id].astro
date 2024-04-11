@@ -13,12 +13,12 @@ import { getProject } from '@data/pocketbase'
 
 const { project_id = '' } = Astro.params
 
-const project = await getProject(project_id)
-
-if (!project) {
+let project
+try {
+  project = await getProject(project_id)
+} catch (e) {
   return Astro.redirect('/app/dashboard')
 }
-
 ---
 
 <LayoutApp title={project.name}>
