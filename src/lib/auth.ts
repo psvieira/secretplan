@@ -1,6 +1,8 @@
 
 import { pb } from '@src/data/pocketbase'
 
+import type { UsersResponse } from '@src/data/pocketbase-types'
+
 export const isValidEmail = (email: string) => {
   if (typeof email !== 'string') return false
   if (email.length > 255) return false
@@ -102,3 +104,28 @@ export async function sendResetPasswordLink(email: string) {
   await pb.collection('users').requestPasswordReset(email)
 }
 
+export async function getUserObjectFromDb(user_id: string) {
+  const user: UsersResponse = await pb.collection('users').getOne(user_id)
+  return user
+}
+
+export async function isUserVerified() {
+  //we load from db as user object is not updated immediately if user clicks verify email
+  const user = await getUserObjectFromDb(getCurrentUserId())
+  return user.verified
+}
+
+//utility function to get current user id
+export function getCurrentUserId() {
+  return pb.authStore.model?.id
+}
+
+export function getCurrentUserEmail() {
+  return pb.authStore.model?.email
+}
+
+export async function sendVerificationEmail(email: string) {
+  await pb
+    .collection('users')
+    .requestVerification(email)
+}
