@@ -23,7 +23,17 @@ const { title = 'Secretplan' } = Astro.props
       name='description'
       content='A project management tool'
     />
-
+    <meta
+      http-equiv='Content-Security-Policy'
+      content="  
+        default-src 'self' data:; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
+        connect-src 'self'; 
+        img-src 'self' data:; 
+        style-src 'self' 'unsafe-inline';
+        object-src 'none';
+      "
+    />
     <script>
       import * as htmx from 'htmx.org'
       import Alpine from 'alpinejs'
