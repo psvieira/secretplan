@@ -97,3 +97,8 @@ export async function getUsername(request: Request) {
   )
   return pb.authStore.model?.username
 }
+
+export async function sendResetPasswordLink(email: string) {
+  await pb.collection('users').requestPasswordReset(email)
+}
+
