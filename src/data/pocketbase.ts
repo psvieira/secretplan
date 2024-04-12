@@ -188,3 +188,12 @@ export async function userIsTeamOwner(team_id: string) {
   return false
 }
 
+export async function getTeams() {
+  const teams = await pb.collection('teams').getFullList()
+  return teams
+}
+
+export async function deleteTeam(id: string) {
+  return await pb.collection('teams').delete(id)
+}
+
