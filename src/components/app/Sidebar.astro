@@ -5,6 +5,9 @@ const projects = await getProjects ()
 
 import { getUsername } from '@lib/auth'
 
+const p_classes =
+  'block bg-zinc-100 dark:bg-zinc-900 py-2 pl-2 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-800 border dark:border-0 dark:border-b border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-white '
+
 ---
 
 
@@ -74,8 +77,15 @@ import { getUsername } from '@lib/auth'
     </div>
   </div>
 
+  <button
+    class={p_classes + ' rounded-t-lg w-full text-left outline-none'}
+    hx-get=`/app/modals/team/new`
+    hx-target='dialog'>
+    + Create new team
+  </button>
+
   <a
-    class='block py-2 pl-2 mb-10 border-b rounded-lg cursor-pointer bg-zinc-900 hover:bg-zinc-800 border-zinc-800'
+    class={p_classes + 'rounded-b-lg w-full text-left'}
     hx-post='/logout'>
     Logout @{getUsername(Astro.request)}
   </a>
