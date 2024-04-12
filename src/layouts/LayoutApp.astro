@@ -53,9 +53,7 @@ const { title = 'Secretplan' } = Astro.props
 
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-      document.addEventListener(
-        'htmx:responseError',
-        function (event) {
+        document.addEventListener('htmx:responseError', function (event) {
           if (event.detail.failed) {
            if (event.detail.xhr.status === 404) {
             alert('Resource not found')
@@ -65,9 +63,11 @@ const { title = 'Secretplan' } = Astro.props
               alert('Sorry, there was an error')
             }
           }
-        }
-      )
-    })
+        })
+        document.addEventListener('htmx:sendError', function (event) {
+          alert('A connection error ocurred')
+        })
+      })
 
     function dragAndDropIntoTask() {
       const maxImageSize = 5 * 1024 * 1024
