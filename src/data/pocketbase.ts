@@ -8,6 +8,7 @@ import type {
 	ProjectsResponse,
 	TasksRecord,
 	TasksResponse,
+	TeamsRecord,
 } from '@src/data/pocketbase-types'
 
 type TexpandProject = {
@@ -195,5 +196,12 @@ export async function getTeams() {
 
 export async function deleteTeam(id: string) {
   return await pb.collection('teams').delete(id)
+}
+
+export async function updateTeam(
+  id: string,
+  data: TeamsRecord
+) {
+  await pb.collection('teams').update(id, data)
 }
 

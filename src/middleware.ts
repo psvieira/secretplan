@@ -4,6 +4,15 @@ import { isLoggedIn, isUserVerified } from '@lib/auth'
 
 export const onRequest = defineMiddleware(
   async (context, next) => {
+    //special cases for stripe workflow
+    if (
+      context.url.pathname === '/app/api/stripe/webhook' ||
+      context.url.pathname.startsWith(
+        '/app/api/stripe/callback/success/'
+      )
+    ) {
+      return next()
+    } else {
     if (!(await isLoggedIn(context.request))) {
       if (context.url.pathname.startsWith('/app/api')) {
         return new Response('Unauthorized', {
@@ -28,7 +37,7 @@ export const onRequest = defineMiddleware(
       }
     }
   }
-
+}
     return next()
   }
 )
