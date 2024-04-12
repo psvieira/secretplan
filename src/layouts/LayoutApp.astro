@@ -45,6 +45,7 @@ const { title = 'Secretplan' } = Astro.props
         }
       }
 
+      htmx.config.selfRequestsOnly = true
       window.htmx = htmx //optional
       window.Alpine = Alpine //optional
       Alpine.start()
