@@ -19,6 +19,6 @@ if (Astro.request.method === 'POST') {
     })
   }
 
-  Astro.response.headers.set('HX-Redirect', `/app/project/${project.id}`)
+  Astro.response.headers.set('HX-Redirect', `/app/project/${project.id})
 }
 ---

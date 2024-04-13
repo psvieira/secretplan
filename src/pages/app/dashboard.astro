@@ -11,7 +11,7 @@ import AddNewProjectCard from '@components/app/projects/AddNewProjectCard.astro'
 
 import { getProjects } from '@data/pocketbase'
 
-const projects = await getProjects()
+const projects = await getProjects({})
 
 ---
 
