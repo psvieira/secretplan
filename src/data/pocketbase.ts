@@ -138,11 +138,19 @@ export async function updateTask(
 	await pb.collection('tasks').update(id, data)
 }
 
-export async function getStarredTasks(): Promise<TasksResponse<TexpandProject>[]> {
+export async function getStarredTasks({
+	team_id = null,
+}): Promise<TasksResponse<TexpandProject>[]> {
 	const options = {
 		sort: '-starred_on',
 		filter: 'starred = true && completed = false',
 		expand: 'project',
+	}
+
+	if (team_id) {
+		options.filter += ` && project.team = "${team_id}"`
+	} else {
+		options.filter += ` && project.team = ""`
 	}
 
 	let tasks: TasksResponse<TexpandProject>[] = [] 
