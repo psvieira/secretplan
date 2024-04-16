@@ -11,6 +11,7 @@ import type {
 	TeamsRecord,
 	TeamsResponse,
 	UsersResponse,
+	InvitesResponse,
 } from '@src/data/pocketbase-types'
 
 type TexpandProject = {
@@ -247,5 +248,24 @@ export async function getOwnerOfTeam(team: TeamsResponse) {
     .getOne(team.created_by)
 
   return user
+}
+
+export async function getInvitesForTeam(team_id: string) {
+  const invites: InvitesResponse[] = await pb
+    .collection('invites')
+    .getFullList({
+      filter: `team = "${team_id}"`
+    })
+  return invites
+}
+
+export async function addInvite(
+  team_id: string,
+  email: string
+) {
+  await pb.collection('invites').create({
+    team: team_id,
+    email,
+  })
 }
 
