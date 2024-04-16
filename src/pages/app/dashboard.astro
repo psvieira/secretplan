@@ -11,6 +11,8 @@ import AddNewProjectCard from '@components/app/projects/AddNewProjectCard.astro'
 
 import { getProjects } from '@data/pocketbase'
 
+import Invites from '@components/app/dashboard/Invites.astro'
+
 const projects = await getProjects({})
 
 ---
@@ -25,6 +27,8 @@ const projects = await getProjects({})
 	     </div>
 	     Projects
 	   </div>
+
+	   <Invites />
 
 	   <div id='starred-tasks-list'>
 	   	<TasksList starred={true} />
