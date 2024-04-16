@@ -3,6 +3,7 @@
 import Layout from '@layouts/LayoutApp.astro'
 import HamburgerMenuButton from '@components/app/HamburgerMenuButton.astro'
 import { getTeam } from '@data/pocketbase'
+import TeamMembers from '@components/app/teams/TeamMembers.astro'
 
 const { team_id = '' } = Astro.params
 
@@ -37,5 +38,6 @@ if (!team) {
 
   <div
     class='pb-10 pl-4 mx-auto text-white max-w-7xl sm:pl-6 lg:pl-8 p-10 mt-10 rounded-lg shadow dark:text-white bg-zinc-100 dark:bg-zinc-800'>
+    	<TeamMembers team={team} />
   </div>
 </Layout>

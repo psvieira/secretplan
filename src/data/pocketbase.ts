@@ -9,10 +9,16 @@ import type {
 	TasksRecord,
 	TasksResponse,
 	TeamsRecord,
+	TeamsResponse,
+	UsersResponse,
 } from '@src/data/pocketbase-types'
 
 type TexpandProject = {
 	project?: ProjectsResponse
+}
+
+type TexpandMembers = {
+	members: UsersResponse[]
 }
 
 export const pb = new PocketBase(
@@ -223,5 +229,23 @@ export async function updateTeam(
   data: TeamsRecord
 ) {
   await pb.collection('teams').update(id, data)
+}
+
+export async function getMembersOfTeam(team_id: string) {
+  const team: TeamsResponse<TexpandMembers> = await pb
+    .collection('teams')
+    .getOne(team_id, {
+      expand: 'members'
+    })
+
+  return team.expand?.members
+}
+
+export async function getOwnerOfTeam(team: TeamsResponse) {
+  const user: UsersResponse = await pb
+    .collection('users')
+    .getOne(team.created_by)
+
+  return user
 }
 
