@@ -305,3 +305,16 @@ export async function getInvite(id: string) {
 
   return team
 }
+
+export async function getTask(id: string) {
+  const options = {
+    expand: 'project',
+  }
+
+  const task: TasksResponse<TexpandProject> = await pb
+    .collection('tasks')
+    .getOne(id, options)
+
+  return task
+}
+
