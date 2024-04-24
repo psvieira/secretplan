@@ -12,6 +12,7 @@ import type {
 	TeamsResponse,
 	UsersResponse,
 	InvitesResponse,
+	ActivitiesResponse,
 } from '@src/data/pocketbase-types'
 
 type TexpandProject = {
@@ -24,6 +25,10 @@ type TexpandMembers = {
 
 type TexpandTeam ={
 	teams: TeamsResponse
+}
+
+type TexpandUser = {
+	user: UsersResponse
 }
 
 export const pb = new PocketBase(
@@ -318,3 +323,40 @@ export async function getTask(id: string) {
   return task
 }
 
+export async function addActivity({
+  team,
+  project,
+  text,
+  type
+}: {
+  team: string
+  project: string
+  text: string
+  type: string
+}) {
+  await pb.collection('activities').create({
+    team,
+    project,
+    text,
+    type,
+    user: pb.authStore.model?.id
+  })
+}
+
+export async function getActivities() {
+  const options = {
+    sort: '-created',
+    expand: 'team,project,user'
+  }
+
+  //@ts-expect-error
+  const activities: ActivitiesResponse<
+    TexpandTeam,
+    TexpandProject,
+    TexpandUser
+  >[] = await pb
+    .collection('activities')
+    .getFullList(options)
+
+  return activities
+}

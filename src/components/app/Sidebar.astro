@@ -165,6 +165,14 @@ const p_classes =
   </button>
 
   <a
+    class={p_classes +
+      (Astro.url.pathname === '/app/activities' &&
+        ' font-bold !bg-blue-600 !text-white')}
+    href='/app/activities'>
+    Activities
+  </a>
+
+  <a
     class={p_classes + 'rounded-b-lg w-full text-left'}
     hx-post='/logout'>
     Logout @{getUsername(Astro.request)}
