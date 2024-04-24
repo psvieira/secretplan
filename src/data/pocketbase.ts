@@ -377,6 +377,10 @@ export async function getActivities({
     }
   }
 
+  if (!team_id && !project_id && !user_id) {
+  	options.perPage = 100
+  }
+
   //@ts-expect-error
   const activities: ActivitiesResponse<
     TexpandTeam,
