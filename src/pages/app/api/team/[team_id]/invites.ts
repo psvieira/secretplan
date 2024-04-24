@@ -4,7 +4,8 @@ import {
   getInvitesForTeam,
   getMembersOfTeam,
   getOwnerOfTeam,
-  getTeam
+  getTeam,
+  addActivity,
 } from '@src/data/pocketbase'
 
 import type { APIRoute } from 'astro'
@@ -41,6 +42,13 @@ export const POST: APIRoute = async ({
   }
 
   await addInvite(team_id, email)
+
+  await addActivity({
+    team: team.id,
+    project: '',
+    text: `Invited to "${team.name}" created for ${email}`,
+    type: 'invite_created'
+  })
 
   return new Response(null, {
     status: 204,
