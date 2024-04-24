@@ -84,7 +84,7 @@ if (Astro.request.method === 'PUT') {
     const project_name =
       formData.get('project_name') as string
     if (project_name) {
-      const old_name = project_name
+      const old_name = project.name
       try {
         await updateProject(project_id, {
           name: project_name,
