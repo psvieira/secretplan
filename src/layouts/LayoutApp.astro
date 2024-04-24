@@ -39,6 +39,17 @@ const { title = 'Secretplan' } = Astro.props
         object-src 'none';
       "
     />
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/service-worker.js')
+            .catch(error => {
+              console.log('Service Worker registration failed: ', error)
+            })
+        })
+      }
+    </script>
     <script>
       import * as htmx from 'htmx.org'
       import Alpine from 'alpinejs'
