@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     project: '',
     text: `Team ${
       team.name
-    } invite accepted by ${getUserUsername(request)}}`,
+    } invite accepted by ${await getUserUsername(request)}}`,
     type: 'invite_accepted'
   })
 

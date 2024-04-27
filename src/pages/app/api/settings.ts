@@ -35,8 +35,8 @@ export const PUT: APIRoute = async ({ request }) => {
   await addActivity({
     team: '',
     project: '',
-    text: `Username changed from ${getUserUsername(request)} to ${username}`,
-    type: 'team_delete'
+    text: `Username changed from ${await getUserUsername(request)} to ${username}`,
+    type: 'username_change'
   })
 
   setUserUsername(username)

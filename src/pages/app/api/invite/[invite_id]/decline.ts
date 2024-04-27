@@ -20,7 +20,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     project: '',
     text: `Team ${
       team.name
-    } invite declined by ${getUserUsername(request)}}`,
+    } invite declined by ${await getUserUsername(request)}}`,
     type: 'invite_declined'
   })
 
