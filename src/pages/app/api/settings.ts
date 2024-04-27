@@ -13,7 +13,8 @@ import type { APIRoute } from 'astro'
 
 export const PUT: APIRoute = async ({ request }) => {
   const formData = await request.formData()
-  const username = formData.get('username') as string
+  let username = formData.get('username') as string
+  username = username.replace(/[^a-zA-Z0-9]/g, '') as string
 
   if (username.length < 3) {
     return new Response(
