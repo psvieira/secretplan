@@ -150,7 +150,9 @@ const { title = 'Secretplan' } = Astro.props
             <div x-show='showMenu' x-cloak>
               <Sidebar />
             </div>
-            <slot />
+            <div id='slot'>
+              <slot />
+            </div>
           </div>
         </div>
       </div>
