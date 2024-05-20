@@ -12,7 +12,8 @@ const { project_id } = Astro.params
 <ModalLayout title='New task'>
   <form
     class='space-y-6'
-    hx-post={`/app/api/project/${project_id}/task`}>
+    hx-post={`/app/api/project/${project_id}/task`}
+    hx-on:htmx:after-request="document.querySelector('dialog').close()">
     <div>
       <div class='mt-1'>
         <InputField name='task_text' />
